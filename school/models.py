@@ -18,3 +18,13 @@ class Classroom(models.Model):
 
     def __str__(self):
         return self.class_name
+    
+class Student(models.Model):
+    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    age = models.IntegerField()
+    roll_number = models.IntegerField(unique=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
