@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Teachers
+{% endblock %}
+
+{% block content %}
+
+<h2>Teachers</h2>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Name</th>
+        <th>Subject</th>
+        <th>Email</th>
+        <th>Classroom</th>
+    </tr>
+
+    {% for teacher in teachers %}
+    <tr>
+        <td>{{ teacher.first_name }} {{ teacher.last_name }}</td>
+        <td>{{ teacher.subject }}</td>
+        <td>{{ teacher.email }}</td>
+        <td>{{ teacher.classroom.class_name }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}
