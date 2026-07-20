@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}School Management{% endblock %}</title>
+</head>
+<body>
+
+    <header>
+        <h1>Riddhi School</h1>
+        <hr>
+    </header>
+
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/about/">About</a> |
+        <a href="/library/">Library</a> |
+        <a href="/classrooms/">Classrooms</a> |
+        <a href="/contact/">Contact</a>
+    </nav>
+
+    <hr>
+
+    {% block content %}
+    {% endblock %}
+
+    <hr>
+
+    <footer>
+        <p>© 2026 Riddhi School</p>
+    </footer>
+
+</body>
+</html>
