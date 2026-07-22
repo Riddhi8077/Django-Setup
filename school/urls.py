@@ -40,4 +40,14 @@ path(
     views.classroom_add,
     name="classroom_add"
 ),
+path(
+    "dashboard/classrooms/edit/<int:id>/",
+    views.classroom_edit,
+    name="classroom_edit"
+),
+path(
+    "dashboard/classrooms/delete/<int:id>/",
+    views.classroom_delete,
+    name="classroom_delete"
+),
 ] 

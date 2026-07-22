@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import School, Classroom, Teacher, Student
-from .forms import SchoolForm
+from .forms import ClassroomForm, SchoolForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -159,4 +159,41 @@ def classroom_add(request):
         request,
         "school/classrooms/add.html",
         {"form": form}
+    )
+
+@login_required(login_url="login")
+def classroom_edit(request, id):
+
+    classroom = get_object_or_404(Classroom, id=id)
+
+    if request.method == "POST":
+
+        form = ClassroomForm(request.POST, instance=classroom)
+
+        if form.is_valid():
+            form.save()
+            return redirect("classroom_list")
+
+    else:
+        form = ClassroomForm(instance=classroom)
+
+    return render(
+        request,
+        "school/classrooms/edit.html",
+        {"form": form}
+    )
+
+@login_required(login_url="login")
+def classroom_delete(request, id):
+
+    classroom = get_object_or_404(Classroom, id=id)
+
+    if request.method == "POST":
+        classroom.delete()
+        return redirect("classroom_list")
+
+    return render(
+        request,
+        "school/classrooms/delete.html",
+        {"classroom": classroom}
     )
