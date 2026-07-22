@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import School, Classroom, Teacher, Student
-from .forms import SchoolForm, ClassroomForm, TeacherForm
+from .forms import SchoolForm, ClassroomForm, TeacherForm, StudentForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -265,4 +265,74 @@ def teacher_delete(request, id):
         request,
         "school/teachers/delete.html",
         {"teacher": teacher}
+    )
+
+@login_required(login_url="login")
+def student_list(request):
+    students = Student.objects.all()
+
+    return render(
+        request,
+        "school/students/list.html",
+        {"students": students}
+    )
+
+
+@login_required(login_url="login")
+def student_add(request):
+
+    if request.method == "POST":
+
+        form = StudentForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("student_list")
+
+    else:
+        form = StudentForm()
+
+    return render(
+        request,
+        "school/students/add.html",
+        {"form": form}
+    )
+
+
+@login_required(login_url="login")
+def student_edit(request, id):
+
+    student = get_object_or_404(Student, id=id)
+
+    if request.method == "POST":
+
+        form = StudentForm(request.POST, instance=student)
+
+        if form.is_valid():
+            form.save()
+            return redirect("student_list")
+
+    else:
+        form = StudentForm(instance=student)
+
+    return render(
+        request,
+        "school/students/edit.html",
+        {"form": form}
+    )
+
+
+@login_required(login_url="login")
+def student_delete(request, id):
+
+    student = get_object_or_404(Student, id=id)
+
+    if request.method == "POST":
+        student.delete()
+        return redirect("student_list")
+
+    return render(
+        request,
+        "school/students/delete.html",
+        {"student": student}
     )
