@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Classrooms</title>
+</head>
+<body>
+
+<h1>Classrooms</h1>
+
+<a href="/dashboard/">Dashboard</a> |
+<a href="/dashboard/classrooms/add/">Add Classroom</a>
+
+<table border="1" cellpadding="10">
+
+<tr>
+    <th>ID</th>
+    <th>Class Name</th>
+    <th>School</th>
+    <th>Actions</th>
+</tr>
+
+{% for classroom in classrooms %}
+
+<tr>
+
+<td>{{ classroom.id }}</td>
+
+<td>{{ classroom.name }}</td>
+
+<td>{{ classroom.school }}</td>
+
+<td>
+
+<a href="/dashboard/classrooms/edit/{{ classroom.id }}/">Edit</a>
+
+|
+
+<a href="/dashboard/classrooms/delete/{{ classroom.id }}/">Delete</a>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="4">
+
+No Classrooms Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>

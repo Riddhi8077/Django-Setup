@@ -30,4 +30,9 @@ path(
     name="school_delete"
 ),
 path("login/", views.login_view, name="login"),
+path(
+    "dashboard/classrooms/",
+    views.classroom_list,
+    name="classroom_list"
+),
 ] 

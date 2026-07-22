@@ -130,3 +130,13 @@ def login_view(request):
         messages.error(request, "Invalid Username or Password")
 
     return render(request, "school/login.html")
+
+@login_required(login_url="login")
+def classroom_list(request):
+    classrooms = Classroom.objects.all()
+
+    return render(
+        request,
+        "school/classrooms/list.html",
+        {"classrooms": classrooms}
+    )
