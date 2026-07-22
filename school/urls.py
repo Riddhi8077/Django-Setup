@@ -19,4 +19,9 @@ path(
     views.school_add,
     name="school_add"
 ),
+path(
+    "dashboard/schools/edit/<int:id>/",
+    views.school_edit,
+    name="school_edit"
+),
 ] 

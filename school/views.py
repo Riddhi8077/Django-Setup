@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import School, Classroom, Teacher, Student
 from .forms import SchoolForm
-
+from django.shortcuts import render, redirect, get_object_or_404
 
 def home(request): 
     return render(request, 'school/home.html')
@@ -68,3 +68,22 @@ def school_add(request):
         {"form": form}
     )
 
+def school_edit(request, id):
+
+    school = get_object_or_404(School, id=id)
+
+    if request.method == "POST":
+        form = SchoolForm(request.POST, instance=school)
+
+        if form.is_valid():
+            form.save()
+            return redirect("school_list")
+
+    else:
+        form = SchoolForm(instance=school)
+
+    return render(
+        request,
+        "school/schools/edit.html",
+        {"form": form}
+    )
