@@ -50,4 +50,8 @@ path(
     views.classroom_delete,
     name="classroom_delete"
 ),
+path("dashboard/teachers/", views.teacher_list, name="teacher_list"),
+path("dashboard/teachers/add/", views.teacher_add, name="teacher_add"),
+path("dashboard/teachers/edit/<int:id>/", views.teacher_edit, name="teacher_edit"),
+path("dashboard/teachers/delete/<int:id>/", views.teacher_delete, name="teacher_delete"),
 ] 

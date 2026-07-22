@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teachers</title>
+</head>
+<body>
+
+<h1>Teachers</h1>
+
+<p>
+    <a href="/dashboard/">Dashboard</a> |
+    <a href="/dashboard/teachers/add/">Add Teacher</a>
+</p>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Classroom</th>
+        <th>Subject</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for teacher in teachers %}
+
+    <tr>
+        <td>{{ teacher.id }}</td>
+        <td>{{ teacher.first_name }}</td>
+        <td>{{ teacher.last_name }}</td>
+        <td>{{ teacher.classroom }}</td>
+        <td>{{ teacher.subject }}</td>
+        <td>{{ teacher.email }}</td>
+
+        <td>
+            <a href="/dashboard/teachers/edit/{{ teacher.id }}/">Edit</a>
+            |
+            <a href="/dashboard/teachers/delete/{{ teacher.id }}/">Delete</a>
+        </td>
+    </tr>
+
+    {% empty %}
+
+    <tr>
+        <td colspan="7" align="center">
+            No Teachers Found
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</body>
+</html>

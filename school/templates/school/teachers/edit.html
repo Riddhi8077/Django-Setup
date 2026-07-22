@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Teacher</title>
+</head>
+<body>
+
+<h1>Edit Teacher</h1>
+
+<a href="/dashboard/teachers/">Back</a>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">
+        Update Teacher
+    </button>
+
+</form>
+
+</body>
+</html>
