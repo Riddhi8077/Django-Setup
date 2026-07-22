@@ -29,4 +29,5 @@ path(
     views.school_delete,
     name="school_delete"
 ),
+path("login/", views.login_view, name="login"),
 ] 

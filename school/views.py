@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .models import School, Classroom, Teacher, Student
 from .forms import SchoolForm
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def home(request): 
     return render(request, 'school/home.html')
@@ -30,6 +33,7 @@ def students(request):
     students = Student.objects.all()
     return render(request, 'school/students.html', {'students': students})
 
+@login_required(login_url="login")
 def dashboard(request):
     context = {
         "school_count": School.objects.count(),
@@ -40,6 +44,7 @@ def dashboard(request):
 
     return render(request, "school/dashboard.html", context)
 
+@login_required(login_url="login")
 def school_list(request):
     schools = School.objects.all()
 
@@ -49,6 +54,7 @@ def school_list(request):
         {"schools": schools}
     )
 
+@login_required(login_url="login")
 def school_add(request):
 
     if request.method == "POST":
@@ -68,6 +74,7 @@ def school_add(request):
         {"form": form}
     )
 
+@login_required(login_url="login")
 def school_edit(request, id):
 
     school = get_object_or_404(School, id=id)
@@ -88,6 +95,7 @@ def school_edit(request, id):
         {"form": form}
     )
 
+@login_required(login_url="login")
 def school_delete(request, id):
 
     school = get_object_or_404(School, id=id)
@@ -101,3 +109,24 @@ def school_delete(request, id):
         "school/schools/delete.html",
         {"school": school}
     )
+
+def login_view(request):
+
+    if request.method == "POST":
+
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(
+            request,
+            username=username,
+            password=password
+        )
+
+        if user is not None:
+            login(request, user)
+            return redirect("dashboard")
+
+        messages.error(request, "Invalid Username or Password")
+
+    return render(request, "school/login.html")
