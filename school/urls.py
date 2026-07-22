@@ -14,4 +14,9 @@ urlpatterns = [
     views.school_list,
     name="school_list"
 ),
+path(
+    "dashboard/schools/add/",
+    views.school_add,
+    name="school_add"
+),
 ] 

@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import School, Classroom, Teacher, Student
+from .forms import SchoolForm
 
 
 def home(request): 
@@ -47,3 +48,23 @@ def school_list(request):
         "school/schools/list.html",
         {"schools": schools}
     )
+
+def school_add(request):
+
+    if request.method == "POST":
+
+        form = SchoolForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("school_list")
+
+    else:
+        form = SchoolForm()
+
+    return render(
+        request,
+        "school/schools/add.html",
+        {"form": form}
+    )
+
