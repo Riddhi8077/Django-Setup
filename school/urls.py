@@ -58,4 +58,5 @@ path("dashboard/students/", views.student_list, name="student_list"),
 path("dashboard/students/add/", views.student_add, name="student_add"),
 path("dashboard/students/edit/<int:id>/", views.student_edit, name="student_edit"),
 path("dashboard/students/delete/<int:id>/", views.student_delete, name="student_delete"),
+path("logout/", views.logout_view, name="logout"),
 ] 

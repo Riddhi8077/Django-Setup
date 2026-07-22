@@ -336,3 +336,8 @@ def student_delete(request, id):
         "school/students/delete.html",
         {"student": student}
     )
+
+@login_required(login_url="login")
+def logout_view(request):
+    logout(request)
+    return redirect("login")
