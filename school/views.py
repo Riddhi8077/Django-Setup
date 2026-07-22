@@ -140,3 +140,23 @@ def classroom_list(request):
         "school/classrooms/list.html",
         {"classrooms": classrooms}
     )
+
+@login_required(login_url="login")
+def classroom_add(request):
+
+    if request.method == "POST":
+
+        form = ClassroomForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("classroom_list")
+
+    else:
+        form = ClassroomForm()
+
+    return render(
+        request,
+        "school/classrooms/add.html",
+        {"form": form}
+    )

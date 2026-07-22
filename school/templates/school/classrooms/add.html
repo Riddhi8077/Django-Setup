@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Classroom</title>
+</head>
+
+<body>
+
+<h1>Add Classroom</h1>
+
+<a href="/dashboard/classrooms/">Back</a>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">
+        Save Classroom
+    </button>
+
+</form>
+
+</body>
+
+</html>

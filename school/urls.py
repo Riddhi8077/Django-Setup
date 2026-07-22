@@ -35,4 +35,9 @@ path(
     views.classroom_list,
     name="classroom_list"
 ),
+path(
+    "dashboard/classrooms/add/",
+    views.classroom_add,
+    name="classroom_add"
+),
 ] 
