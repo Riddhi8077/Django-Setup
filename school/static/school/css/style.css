@@ -1,41 +1,245 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-header {
-    background-color: #1976d2;
-    color: white;
-    padding: 20px;
-    text-align: center;
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#edf4ff,#dfefff,#ffffff);
+    min-height:100vh;
+    color:#333;
 }
 
-nav {
-    background-color: #333;
-    padding: 12px;
-    text-align: center;
+/* HEADER */
+
+header{
+    background:linear-gradient(135deg,#1b0e4d,#360266);
+    color:white;
+    text-align:center;
+    padding:35px 20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    animation:slideDown .8s ease;
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 15px;
-    font-weight: bold;
+header h1{
+    font-size:40px;
+    letter-spacing:1px;
 }
 
-nav a:hover {
-    color: #ffeb3b;
+header p{
+    margin-top:8px;
+    opacity:.9;
 }
 
-main {
-    padding: 30px;
+/* NAVBAR */
+
+nav{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    padding:18px;
+    background:white;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
-footer {
-    background-color: #1976d2;
-    color: white;
-    text-align: center;
-    padding: 15px;
-    margin-top: 40px;
+nav a{
+    text-decoration:none;
+    color:#444;
+    padding:12px 22px;
+    border-radius:30px;
+    transition:.35s;
+    font-weight:600;
+}
+
+nav a:hover{
+    background:#360266;
+    color:white;
+    transform:translateY(-4px);
+    box-shadow:0 10px 20px rgba(106, 37, 235, 0.3);
+}
+
+/* MAIN */
+
+main{
+    width:90%;
+    max-width:1200px;
+    margin:40px auto;
+    animation:fadeIn 1s ease;
+}
+
+/* PAGE TITLES */
+
+h2{
+    font-size:34px;
+    margin-bottom:25px;
+    color:#360266;
+    position:relative;
+}
+
+h2::after{
+    content:'';
+    width:90px;
+    height:4px;
+    background:#360266;
+    display:block;
+    margin-top:8px;
+    border-radius:10px;
+}
+
+/* TABLE */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    overflow:hidden;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 15px 30px rgba(0,0,0,.08);
+    animation:pop .7s ease;
+}
+
+table th{
+    background:linear-gradient(135deg,#5416a7,#360266);
+    color:white;
+    padding:18px;
+    font-size:16px;
+}
+
+table td{
+    padding:16px;
+    text-align:center;
+    border-bottom:1px solid #ececec;
+}
+
+table tr{
+    transition:.3s;
+}
+
+table tbody tr:hover{
+    background:#edf4ff;
+    transform:scale(1.01);
+}
+
+/* BUTTONS */
+
+button{
+    background:#360266;
+    color:white;
+    border:none;
+    padding:10px 22px;
+    border-radius:25px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#360266;
+    transform:translateY(-3px);
+}
+
+/* CARDS */
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    margin:20px 0;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 35px rgba(106, 37, 235, 0.15);
+}
+
+/* FOOTER */
+
+footer{
+    margin-top:70px;
+    background:linear-gradient(135deg,#2b0766,#4663e5);
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(25px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+@keyframes slideDown{
+
+from{
+opacity:0;
+transform:translateY(-40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+@keyframes pop{
+
+from{
+transform:scale(.9);
+opacity:0;
+}
+
+to{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+header h1{
+font-size:28px;
+}
+
+nav{
+gap:10px;
+}
+
+nav a{
+padding:10px 15px;
+font-size:14px;
+}
+
+table{
+display:block;
+overflow-x:auto;
+white-space:nowrap;
+}
+
+h2{
+font-size:28px;
+}
+
 }

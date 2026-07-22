@@ -2,40 +2,61 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{% block title %}School Management{% endblock %}</title>
+
     <link rel="stylesheet" href="{% static 'school/css/style.css' %}">
+
 </head>
+
 <body>
 
-    <header>
-        <h1>Riddhi School</h1>
-        <hr>
-    </header>
+<header>
 
-    <nav>
-    <a href="/">Home</a> |
-    <a href="/about/">About</a> |
-    <a href="/schools/">Schools</a> |
-    <a href="/classrooms/">Classrooms</a> |
-    <a href="/teachers/">Teachers</a> |
+    <h1>Tebin School Portal</h1>
+
+    <p>Modern School Management System</p>
+ 
+</header>
+
+<nav>
+
+    <a href="/">Home</a>
+
+    <a href="/about/">About</a>
+
+    <a href="/schools/">Schools</a>
+
+    <a href="/classrooms/">Classrooms</a>
+
+    <a href="/teachers/">Teachers</a>
+
     <a href="/students/">Students</a>
+
 </nav>
 
-    <hr>
+<main>
 
-    <main>
-    {% block content %}
-    {% endblock %}
+{% block content %}
+
+{% endblock %}
+
 </main>
 
-    <hr>
+<footer>
 
-    <footer>
-        <p>© 2026 Riddhi School</p>
-    </footer>
+    <h3>Tebin School Portal</h3>
+
+    <p>Built using Django 3.0.14</p>
+
+</footer>
 
 </body>
+
 </html>

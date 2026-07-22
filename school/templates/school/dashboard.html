@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School Dashboard</title>
+</head>
+<body>
+
+<h1>School Management Dashboard</h1>
+
+<hr>
+
+<h3>Statistics</h3>
+
+<ul>
+    <li>Total Schools : {{ school_count }}</li>
+    <li>Total Classrooms : {{ classroom_count }}</li>
+    <li>Total Teachers : {{ teacher_count }}</li>
+    <li>Total Students : {{ student_count }}</li>
+</ul>
+
+<hr>
+
+<h3>Management</h3>
+
+<ul>
+    <li><a href="/dashboard/schools/">Manage Schools</a></li>
+    <li><a href="/dashboard/classrooms/">Manage Classrooms</a></li>
+    <li><a href="/dashboard/teachers/">Manage Teachers</a></li>
+    <li><a href="/dashboard/students/">Manage Students</a></li>
+</ul>
+
+</body>
+</html>

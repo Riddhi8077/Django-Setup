@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import School, Classroom, Teacher, Student
 
 
-def home(request):
+def home(request): 
     return render(request, 'school/home.html')
 
 
@@ -13,7 +13,7 @@ def about(request):
 def schools(request):
     schools = School.objects.all()
     return render(request, 'school/schools.html', {'schools': schools})
-
+                                                                                                                                                                                                                                
 
 def classrooms(request):
     classrooms = Classroom.objects.all()
@@ -28,3 +28,13 @@ def teachers(request):
 def students(request):
     students = Student.objects.all()
     return render(request, 'school/students.html', {'students': students})
+
+def dashboard(request):
+    context = {
+        "school_count": School.objects.count(),
+        "classroom_count": Classroom.objects.count(),
+        "teacher_count": Teacher.objects.count(),
+        "student_count": Student.objects.count(),
+    }
+
+    return render(request, "school/dashboard.html", context)
