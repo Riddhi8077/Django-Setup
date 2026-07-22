@@ -38,3 +38,12 @@ def dashboard(request):
     }
 
     return render(request, "school/dashboard.html", context)
+
+def school_list(request):
+    schools = School.objects.all()
+
+    return render(
+        request,
+        "school/schools/list.html",
+        {"schools": schools}
+    )
