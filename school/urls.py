@@ -24,4 +24,9 @@ path(
     views.school_edit,
     name="school_edit"
 ),
+path(
+    "dashboard/schools/delete/<int:id>/",
+    views.school_delete,
+    name="school_delete"
+),
 ] 

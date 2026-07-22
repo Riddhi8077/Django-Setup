@@ -87,3 +87,17 @@ def school_edit(request, id):
         "school/schools/edit.html",
         {"form": form}
     )
+
+def school_delete(request, id):
+
+    school = get_object_or_404(School, id=id)
+
+    if request.method == "POST":
+        school.delete()
+        return redirect("school_list")
+
+    return render(
+        request,
+        "school/schools/delete.html",
+        {"school": school}
+    )
