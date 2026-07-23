@@ -10,14 +10,52 @@
 <h1>Edit School</h1>
 
 <p>
-    <a href="/dashboard/schools/">Back to Schools</a>
+    <a href="/dashboard/schools/">← Back</a>
 </p>
 
 <form method="POST">
 
     {% csrf_token %}
 
-    {{ form.as_p }}
+    <p>
+        <label>School Name</label><br>
+        <input
+            type="text"
+            name="name"
+            value="{{ school.name }}"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Principal</label><br>
+        <input
+            type="text"
+            name="principal"
+            value="{{ school.principal }}"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Address</label><br>
+        <textarea
+            name="address"
+            rows="4"
+            cols="40"
+            required
+        >{{ school.address }}</textarea>
+    </p>
+
+    <p>
+        <label>Established Year</label><br>
+        <input
+            type="number"
+            name="established_year"
+            value="{{ school.established_year }}"
+            required
+        >
+    </p>
 
     <button type="submit">
         Update School
@@ -26,5 +64,4 @@
 </form>
 
 </body>
-
 </html>

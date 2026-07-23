@@ -59,20 +59,21 @@ def school_add(request):
 
     if request.method == "POST":
 
-        form = SchoolForm(request.POST)
+        name = request.POST.get("name")
+        principal = request.POST.get("principal")
+        address = request.POST.get("address")
+        established_year = request.POST.get("established_year")
 
-        if form.is_valid():
-            form.save()
-            return redirect("school_list")
+        School.objects.create(
+            name=name,
+            principal=principal,
+            address=address,
+            established_year=established_year
+        )
 
-    else:
-        form = SchoolForm()
+        return redirect("school_list")
 
-    return render(
-        request,
-        "school/schools/add.html",
-        {"form": form}
-    )
+    return render(request, "school/schools/add.html")
 
 @login_required(login_url="login")
 def school_edit(request, id):
@@ -80,19 +81,22 @@ def school_edit(request, id):
     school = get_object_or_404(School, id=id)
 
     if request.method == "POST":
-        form = SchoolForm(request.POST, instance=school)
 
-        if form.is_valid():
-            form.save()
-            return redirect("school_list")
+        school.name = request.POST.get("name")
+        school.principal = request.POST.get("principal")
+        school.address = request.POST.get("address")
+        school.established_year = request.POST.get("established_year")
 
-    else:
-        form = SchoolForm(instance=school)
+        school.save()
+
+        return redirect("school_list")
 
     return render(
         request,
         "school/schools/edit.html",
-        {"form": form}
+        {
+            "school": school
+        }
     )
 
 @login_required(login_url="login")
