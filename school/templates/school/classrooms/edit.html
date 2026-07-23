@@ -1,19 +1,66 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Edit Classroom</title>
 </head>
+
 <body>
 
 <h1>Edit Classroom</h1>
 
-<a href="/dashboard/classrooms/">Back</a>
+<p>
+    <a href="/dashboard/classrooms/">← Back</a>
+</p>
 
 <form method="POST">
 
     {% csrf_token %}
 
-    {{ form.as_p }}
+    <p>
+        <label>School</label><br>
+
+        <select name="school" required>
+
+            {% for school in schools %}
+
+            <option value="{{ school.id }}"
+                {% if classroom.school.id == school.id %}selected{% endif %}>
+                {{ school.name }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </p>
+
+    <p>
+        <label>Class Name</label><br>
+        <input
+            type="text"
+            name="class_name"
+            value="{{ classroom.class_name }}"
+            required>
+    </p>
+
+    <p>
+        <label>Room Number</label><br>
+        <input
+            type="number"
+            name="room_number"
+            value="{{ classroom.room_number }}"
+            required>
+    </p>
+
+    <p>
+        <label>Capacity</label><br>
+        <input
+            type="number"
+            name="capacity"
+            value="{{ classroom.capacity }}"
+            required>
+    </p>
 
     <button type="submit">
         Update Classroom

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import School, Classroom, Teacher, Student
-from .forms import SchoolForm, ClassroomForm, TeacherForm, StudentForm
+from .forms import ClassroomForm, TeacherForm, StudentForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -150,19 +150,30 @@ def classroom_add(request):
 
     if request.method == "POST":
 
-        form = ClassroomForm(request.POST)
+        school_id = request.POST.get("school")
+        class_name = request.POST.get("class_name")
+        room_number = request.POST.get("room_number")
+        capacity = request.POST.get("capacity")
 
-        if form.is_valid():
-            form.save()
-            return redirect("classroom_list")
+        school = School.objects.get(id=school_id)
 
-    else:
-        form = ClassroomForm()
+        Classroom.objects.create(
+            school=school,
+            class_name=class_name,
+            room_number=room_number,
+            capacity=capacity
+        )
+
+        return redirect("classroom_list")
+
+    schools = School.objects.all()
 
     return render(
         request,
         "school/classrooms/add.html",
-        {"form": form}
+        {
+            "schools": schools
+        }
     )
 
 @login_required(login_url="login")
@@ -172,19 +183,26 @@ def classroom_edit(request, id):
 
     if request.method == "POST":
 
-        form = ClassroomForm(request.POST, instance=classroom)
+        school_id = request.POST.get("school")
+        classroom.school = School.objects.get(id=school_id)
 
-        if form.is_valid():
-            form.save()
-            return redirect("classroom_list")
+        classroom.class_name = request.POST.get("class_name")
+        classroom.room_number = request.POST.get("room_number")
+        classroom.capacity = request.POST.get("capacity")
 
-    else:
-        form = ClassroomForm(instance=classroom)
+        classroom.save()
+
+        return redirect("classroom_list")
+
+    schools = School.objects.all()
 
     return render(
         request,
         "school/classrooms/edit.html",
-        {"form": form}
+        {
+            "classroom": classroom,
+            "schools": schools,
+        }
     )
 
 @login_required(login_url="login")
