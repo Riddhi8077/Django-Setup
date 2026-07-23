@@ -319,6 +319,35 @@ def student_list(request):
         {"students": students}
     )
 
+@login_required(login_url="login")
+def student_edit(request, id):
+
+    student = get_object_or_404(Student, id=id)
+
+    if request.method == "POST":
+
+        classroom_id = request.POST.get("classroom")
+
+        student.classroom = Classroom.objects.get(id=classroom_id)
+        student.first_name = request.POST.get("first_name")
+        student.last_name = request.POST.get("last_name")
+        student.age = request.POST.get("age")
+        student.roll_number = request.POST.get("roll_number")
+
+        student.save()
+
+        return redirect("student_list")
+
+    classrooms = Classroom.objects.all()
+
+    return render(
+        request,
+        "school/students/edit.html",
+        {
+            "student": student,
+            "classrooms": classrooms,
+        }
+    )
 
 @login_required(login_url="login")
 def student_add(request):
@@ -350,37 +379,6 @@ def student_add(request):
         "school/students/add.html",
         {
             "classrooms": classrooms
-        }
-    )
-
-
-@login_required(login_url="login")
-def student_edit(request, id):
-
-    student = get_object_or_404(Student, id=id)
-
-    if request.method == "POST":
-
-        classroom_id = request.POST.get("classroom")
-
-        student.classroom = Classroom.objects.get(id=classroom_id)
-        student.first_name = request.POST.get("first_name")
-        student.last_name = request.POST.get("last_name")
-        student.age = request.POST.get("age")
-        student.roll_number = request.POST.get("roll_number")
-
-        student.save()
-
-        return redirect("student_list")
-
-    classrooms = Classroom.objects.all()
-
-    return render(
-        request,
-        "school/students/edit.html",
-        {
-            "student": student,
-            "classrooms": classrooms,
         }
     )
 

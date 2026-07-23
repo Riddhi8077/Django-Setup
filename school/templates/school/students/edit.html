@@ -1,19 +1,75 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Edit Student</title>
 </head>
+
 <body>
 
 <h1>Edit Student</h1>
 
-<a href="/dashboard/students/">Back</a>
+<p>
+    <a href="/dashboard/students/">← Back</a>
+</p>
 
 <form method="POST">
 
     {% csrf_token %}
 
-    {{ form.as_p }}
+    <p>
+        <label>Classroom</label><br>
+
+        <select name="classroom" required>
+
+            {% for classroom in classrooms %}
+
+            <option value="{{ classroom.id }}"
+                {% if student.classroom.id == classroom.id %}selected{% endif %}>
+                {{ classroom.class_name }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </p>
+
+    <p>
+        <label>First Name</label><br>
+        <input
+            type="text"
+            name="first_name"
+            value="{{ student.first_name }}"
+            required>
+    </p>
+
+    <p>
+        <label>Last Name</label><br>
+        <input
+            type="text"
+            name="last_name"
+            value="{{ student.last_name }}"
+            required>
+    </p>
+
+    <p>
+        <label>Age</label><br>
+        <input
+            type="number"
+            name="age"
+            value="{{ student.age }}"
+            required>
+    </p>
+
+    <p>
+        <label>Roll Number</label><br>
+        <input
+            type="number"
+            name="roll_number"
+            value="{{ student.roll_number }}"
+            required>
+    </p>
 
     <button type="submit">
         Update Student
