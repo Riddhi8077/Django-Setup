@@ -235,19 +235,32 @@ def teacher_add(request):
 
     if request.method == "POST":
 
-        form = TeacherForm(request.POST)
+        classroom_id = request.POST.get("classroom")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        subject = request.POST.get("subject")
+        email = request.POST.get("email")
 
-        if form.is_valid():
-            form.save()
-            return redirect("teacher_list")
+        classroom = Classroom.objects.get(id=classroom_id)
 
-    else:
-        form = TeacherForm()
+        Teacher.objects.create(
+            classroom=classroom,
+            first_name=first_name,
+            last_name=last_name,
+            subject=subject,
+            email=email
+        )
+
+        return redirect("teacher_list")
+
+    classrooms = Classroom.objects.all()
 
     return render(
         request,
         "school/teachers/add.html",
-        {"form": form}
+        {
+            "classrooms": classrooms
+        }
     )
 
 
@@ -258,19 +271,27 @@ def teacher_edit(request, id):
 
     if request.method == "POST":
 
-        form = TeacherForm(request.POST, instance=teacher)
+        classroom_id = request.POST.get("classroom")
 
-        if form.is_valid():
-            form.save()
-            return redirect("teacher_list")
+        teacher.classroom = Classroom.objects.get(id=classroom_id)
+        teacher.first_name = request.POST.get("first_name")
+        teacher.last_name = request.POST.get("last_name")
+        teacher.subject = request.POST.get("subject")
+        teacher.email = request.POST.get("email")
 
-    else:
-        form = TeacherForm(instance=teacher)
+        teacher.save()
+
+        return redirect("teacher_list")
+
+    classrooms = Classroom.objects.all()
 
     return render(
         request,
         "school/teachers/edit.html",
-        {"form": form}
+        {
+            "teacher": teacher,
+            "classrooms": classrooms,
+        }
     )
 
 

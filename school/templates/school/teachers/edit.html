@@ -1,19 +1,75 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Edit Teacher</title>
 </head>
+
 <body>
 
 <h1>Edit Teacher</h1>
 
-<a href="/dashboard/teachers/">Back</a>
+<p>
+    <a href="/dashboard/teachers/">← Back</a>
+</p>
 
 <form method="POST">
 
     {% csrf_token %}
 
-    {{ form.as_p }}
+    <p>
+        <label>Classroom</label><br>
+
+        <select name="classroom" required>
+
+            {% for classroom in classrooms %}
+
+            <option value="{{ classroom.id }}"
+                {% if teacher.classroom.id == classroom.id %}selected{% endif %}>
+                {{ classroom.class_name }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </p>
+
+    <p>
+        <label>First Name</label><br>
+        <input
+            type="text"
+            name="first_name"
+            value="{{ teacher.first_name }}"
+            required>
+    </p>
+
+    <p>
+        <label>Last Name</label><br>
+        <input
+            type="text"
+            name="last_name"
+            value="{{ teacher.last_name }}"
+            required>
+    </p>
+
+    <p>
+        <label>Subject</label><br>
+        <input
+            type="text"
+            name="subject"
+            value="{{ teacher.subject }}"
+            required>
+    </p>
+
+    <p>
+        <label>Email</label><br>
+        <input
+            type="email"
+            name="email"
+            value="{{ teacher.email }}"
+            required>
+    </p>
 
     <button type="submit">
         Update Teacher

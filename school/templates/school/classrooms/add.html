@@ -12,57 +12,33 @@
 </p>
 
 <form method="POST">
-
     {% csrf_token %}
 
     <p>
         <label>School</label><br>
-
         <select name="school" required>
-
             {% for school in schools %}
-
-                <option value="{{ school.id }}">
-                    {{ school.name }}
-                </option>
-
+                <option value="{{ school.id }}">{{ school.name }}</option>
             {% endfor %}
-
         </select>
-
     </p>
 
     <p>
         <label>Class Name</label><br>
-        <input
-            type="text"
-            name="class_name"
-            required
-        >
+        <input type="text" name="class_name" required>
     </p>
 
     <p>
         <label>Room Number</label><br>
-        <input
-            type="number"
-            name="room_number"
-            required
-        >
+        <input type="number" name="room_number" required>
     </p>
 
     <p>
         <label>Capacity</label><br>
-        <input
-            type="number"
-            name="capacity"
-            required
-        >
+        <input type="number" name="capacity" required>
     </p>
 
-    <button type="submit">
-        Save Classroom
-    </button>
-
+    <button type="submit">Save Classroom</button>
 </form>
 
 </body>
