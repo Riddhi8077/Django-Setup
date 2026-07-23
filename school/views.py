@@ -382,7 +382,6 @@ def student_add(request):
         }
     )
 
-
 @login_required(login_url="login")
 def student_delete(request, id):
 
