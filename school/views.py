@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from .models import School, Classroom, Teacher, Student
-from .forms import ClassroomForm, TeacherForm, StudentForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -326,19 +325,32 @@ def student_add(request):
 
     if request.method == "POST":
 
-        form = StudentForm(request.POST)
+        classroom_id = request.POST.get("classroom")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        age = request.POST.get("age")
+        roll_number = request.POST.get("roll_number")
 
-        if form.is_valid():
-            form.save()
-            return redirect("student_list")
+        classroom = Classroom.objects.get(id=classroom_id)
 
-    else:
-        form = StudentForm()
+        Student.objects.create(
+            classroom=classroom,
+            first_name=first_name,
+            last_name=last_name,
+            age=age,
+            roll_number=roll_number
+        )
+
+        return redirect("student_list")
+
+    classrooms = Classroom.objects.all()
 
     return render(
         request,
         "school/students/add.html",
-        {"form": form}
+        {
+            "classrooms": classrooms
+        }
     )
 
 
@@ -349,19 +361,27 @@ def student_edit(request, id):
 
     if request.method == "POST":
 
-        form = StudentForm(request.POST, instance=student)
+        classroom_id = request.POST.get("classroom")
 
-        if form.is_valid():
-            form.save()
-            return redirect("student_list")
+        student.classroom = Classroom.objects.get(id=classroom_id)
+        student.first_name = request.POST.get("first_name")
+        student.last_name = request.POST.get("last_name")
+        student.age = request.POST.get("age")
+        student.roll_number = request.POST.get("roll_number")
 
-    else:
-        form = StudentForm(instance=student)
+        student.save()
+
+        return redirect("student_list")
+
+    classrooms = Classroom.objects.all()
 
     return render(
         request,
         "school/students/edit.html",
-        {"form": form}
+        {
+            "student": student,
+            "classrooms": classrooms,
+        }
     )
 
 

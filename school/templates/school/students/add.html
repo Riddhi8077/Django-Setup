@@ -10,14 +10,49 @@
 <h1>Add Student</h1>
 
 <p>
-    <a href="/dashboard/students/">Back to Students</a>
+    <a href="/dashboard/students/">← Back</a>
 </p>
 
 <form method="POST">
 
     {% csrf_token %}
 
-    {{ form.as_p }}
+    <p>
+        <label>Classroom</label><br>
+
+        <select name="classroom" required>
+
+            {% for classroom in classrooms %}
+
+            <option value="{{ classroom.id }}">
+                {{ classroom.class_name }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </p>
+
+    <p>
+        <label>First Name</label><br>
+        <input type="text" name="first_name" required>
+    </p>
+
+    <p>
+        <label>Last Name</label><br>
+        <input type="text" name="last_name" required>
+    </p>
+
+    <p>
+        <label>Age</label><br>
+        <input type="number" name="age" required>
+    </p>
+
+    <p>
+        <label>Roll Number</label><br>
+        <input type="number" name="roll_number" required>
+    </p>
 
     <button type="submit">
         Save Student
@@ -26,5 +61,4 @@
 </form>
 
 </body>
-
 </html>
