@@ -120,6 +120,126 @@
 
 </form>
 
+<script>
+
+const form = document.getElementById("classroomForm");
+
+form.addEventListener("submit", function(e){
+
+    let valid = true;
+
+    document.querySelectorAll(".error").forEach(function(error){
+
+        error.innerHTML = "";
+
+    });
+
+    document.querySelectorAll("input,select").forEach(function(field){
+
+        field.classList.remove("error-input");
+
+    });
+
+    // School
+
+    const school = document.getElementById("school");
+
+    if(school.value === ""){
+
+        document.getElementById("schoolError").innerHTML =
+        "Please select a school.";
+
+        school.classList.add("error-input");
+
+        valid = false;
+
+    }
+
+    // Class Name
+
+    const className = document.getElementById("class_name");
+
+    if(className.value.trim() === ""){
+
+        document.getElementById("classNameError").innerHTML =
+        "Class name is required.";
+
+        className.classList.add("error-input");
+
+        valid = false;
+
+    }
+
+    // Room Number
+
+    const room = document.getElementById("room_number");
+
+    if(room.value.trim() === ""){
+
+        document.getElementById("roomNumberError").innerHTML =
+        "Room number is required.";
+
+        room.classList.add("error-input");
+
+        valid = false;
+
+    }
+    else if(Number(room.value) <= 0){
+
+        document.getElementById("roomNumberError").innerHTML =
+        "Room number must be greater than 0.";
+
+        room.classList.add("error-input");
+
+        valid = false;
+
+    }
+
+    // Capacity
+
+    const capacity = document.getElementById("capacity");
+
+    if(capacity.value.trim() === ""){
+
+        document.getElementById("capacityError").innerHTML =
+        "Capacity is required.";
+
+        capacity.classList.add("error-input");
+
+        valid = false;
+
+    }
+    else if(Number(capacity.value) <= 0){
+
+        document.getElementById("capacityError").innerHTML =
+        "Capacity must be greater than 0.";
+
+        capacity.classList.add("error-input");
+
+        valid = false;
+
+    }
+
+    if(!valid){
+
+        e.preventDefault();
+
+    }
+
+});
+
+document.querySelectorAll("input,select").forEach(function(field){
+
+    field.addEventListener("input", function(){
+
+        field.classList.remove("error-input");
+
+    });
+
+});
+
+</script>
+
 </body>
 
 </html>
