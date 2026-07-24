@@ -161,6 +161,19 @@ if(address.value.trim() === ""){
     valid = false;
 
 }
+
+const year = document.getElementById("year");
+
+if(year.value.trim() === ""){
+
+    document.getElementById("yearError").innerHTML =
+        "Established year is required.";
+
+    year.classList.add("error-input");
+
+    valid = false;
+
+}
 </script>
 
 </body>
