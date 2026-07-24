@@ -222,21 +222,43 @@ def classroom_add(request):
 
         errors = {}
 
+        # School Validation
+        if not school_id:
+            errors["school"] = "Please select a school."
+
+        # Class Name Validation
         if not class_name.strip():
             errors["class_name"] = "Class name is required."
 
-        if not room_number.strip():
-            errors["room_number"] = "Room number is required."
-
-        if not capacity.strip():
-            errors["capacity"] = "Capacity is required."
-
+        # Room Number Validation
         try:
-            school = School.objects.get(id=school_id)
+            room_number = int(room_number)
+
+            if room_number <= 0:
+                errors["room_number"] = "Room number must be greater than 0."
+
         except:
-            errors["school"] = "Please select a valid school."
+            errors["room_number"] = "Enter a valid room number."
+
+        # Capacity Validation
+        try:
+            capacity = int(capacity)
+
+            if capacity <= 0:
+                errors["capacity"] = "Capacity must be greater than 0."
+
+        except:
+            errors["capacity"] = "Enter a valid capacity."
+
+        # School Exists?
+        if school_id:
+            try:
+                school = School.objects.get(id=school_id)
+            except School.DoesNotExist:
+                errors["school"] = "Selected school does not exist."
 
         if errors:
+
             schools = School.objects.all()
 
             return render(
@@ -246,7 +268,7 @@ def classroom_add(request):
                     "errors": errors,
                     "schools": schools,
                     "old": request.POST,
-                },
+                }
             )
 
         Classroom.objects.create(
@@ -265,7 +287,7 @@ def classroom_add(request):
         "school/classrooms/add.html",
         {
             "schools": schools
-        },
+        }
     )
 
 @login_required(login_url="login")
