@@ -129,13 +129,6 @@ if(name.value.trim() === ""){
 
 }
 
-if(!valid){
-
-    e.preventDefault();
-
-}
-});
-
 const principal = document.getElementById("principal");
 
 if(principal.value.trim() === ""){
@@ -175,7 +168,7 @@ if(year.value.trim() === ""){
 
 }
 
-else if(year.value < 1800 || year.value > new Date().getFullYear()){
+else if(Number(year.value) < 1800 || Number(year.value) > new Date().getFullYear()){
 
     document.getElementById("yearError").innerHTML =
         "Please enter a valid year.";
@@ -185,6 +178,14 @@ else if(year.value < 1800 || year.value > new Date().getFullYear()){
     valid = false;
 
 }
+
+if(!valid){
+
+    e.preventDefault();
+
+}
+
+});
 
 </script>
 
