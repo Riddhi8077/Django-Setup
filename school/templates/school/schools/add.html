@@ -135,6 +135,19 @@ if(!valid){
 
 }
 });
+
+const principal = document.getElementById("principal");
+
+if(principal.value.trim() === ""){
+
+    document.getElementById("principalError").innerHTML =
+        "Principal name is required.";
+
+    principal.classList.add("error-input");
+
+    valid = false;
+
+}
 </script>
 
 </body>
