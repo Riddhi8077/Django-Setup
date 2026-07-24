@@ -96,5 +96,47 @@
 
     </form>
 
-    </body>
-    </html>
+    <script>
+
+const form=document.getElementById("schoolForm");
+
+form.addEventListener("submit",function(e){
+
+    let valid=true;
+
+    document.querySelectorAll(".error").forEach(function(error){
+
+        error.innerHTML="";
+
+    });
+
+    document.querySelectorAll("input,textarea").forEach(function(field){
+
+        field.classList.remove("error-input");
+
+    });
+
+    const name = document.getElementById("name");
+
+if(name.value.trim() === ""){
+
+    document.getElementById("nameError").innerHTML =
+        "School name is required.";
+
+    name.classList.add("error-input");
+
+    valid = false;
+
+}
+
+if(!valid){
+
+    e.preventDefault();
+
+}
+});
+</script>
+
+</body>
+
+</html>
