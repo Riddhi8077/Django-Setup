@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+import re
 
 def home(request): 
     return render(request, 'school/home.html')
@@ -419,7 +420,12 @@ def teacher_add(request):
             errors["subject"] = "Subject is required."
 
         if not email.strip():
-            errors["email"] = "Email is required."
+
+         errors["email"] = "Email is required."
+
+        elif not re.match(r"^[^\s@]+@[^\s@]+\.[^\s@]+$", email):
+
+         errors["email"] = "Enter a valid email address."
 
         if classroom_id:
             try:
