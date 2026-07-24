@@ -2,7 +2,24 @@
 <html>
 
 <head>
+
     <title>Edit Classroom</title>
+
+    <style>
+
+        .error{
+            color:red;
+            font-size:14px;
+            display:block;
+            margin-top:5px;
+        }
+
+        .error-input{
+            border:2px solid red;
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -13,19 +30,28 @@
     <a href="/dashboard/classrooms/">← Back</a>
 </p>
 
-<form method="POST" id="schoolForm" novalidate>
+<form method="POST" id="classroomForm" novalidate>
 
     {% csrf_token %}
 
     <p>
+
         <label>School</label><br>
 
-        <select name="school" >
+        <select id="school" name="school">
+
+            <option value="">Select School</option>
 
             {% for school in schools %}
 
-            <option value="{{ school.id }}"
-                {% if classroom.school.id == school.id %}selected{% endif %}>
+            <option
+                value="{{ school.id }}"
+                {% if request.method == 'POST' %}
+                    {% if request.POST.school == school.id|stringformat:"s" %}selected{% endif %}
+                {% else %}
+                    {% if classroom.school.id == school.id %}selected{% endif %}
+                {% endif %}
+            >
                 {{ school.name }}
             </option>
 
@@ -33,33 +59,61 @@
 
         </select>
 
+        <span class="error" id="schoolError">
+            {{ errors.school }}
+        </span>
+
     </p>
 
     <p>
+
         <label>Class Name</label><br>
+
         <input
             type="text"
+            id="class_name"
             name="class_name"
-            value="{{ classroom.class_name }}"
-            novalidate>
+            value="{% if request.method == 'POST' %}{{ request.POST.class_name }}{% else %}{{ classroom.class_name }}{% endif %}"
+        >
+
+        <span class="error" id="classNameError">
+            {{ errors.class_name }}
+        </span>
+
     </p>
 
     <p>
+
         <label>Room Number</label><br>
+
         <input
             type="number"
+            id="room_number"
             name="room_number"
-            value="{{ classroom.room_number }}"
-            novalidate>
+            value="{% if request.method == 'POST' %}{{ request.POST.room_number }}{% else %}{{ classroom.room_number }}{% endif %}"
+        >
+
+        <span class="error" id="roomNumberError">
+            {{ errors.room_number }}
+        </span>
+
     </p>
 
     <p>
+
         <label>Capacity</label><br>
+
         <input
             type="number"
+            id="capacity"
             name="capacity"
-            value="{{ classroom.capacity }}"
-            novalidate>
+            value="{% if request.method == 'POST' %}{{ request.POST.capacity }}{% else %}{{ classroom.capacity }}{% endif %}"
+        >
+
+        <span class="error" id="capacityError">
+            {{ errors.capacity }}
+        </span>
+
     </p>
 
     <button type="submit">
@@ -68,5 +122,8 @@
 
 </form>
 
+<script>const form = document.getElementById("classroomForm");</script>
+
 </body>
+
 </html>
