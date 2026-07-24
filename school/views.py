@@ -600,18 +600,65 @@ def student_edit(request, id):
 @login_required(login_url="login")
 def student_add(request):
 
+    classrooms = Classroom.objects.all()
+
     if request.method == "POST":
 
-        classroom_id = request.POST.get("classroom")
+        classroom = request.POST.get("classroom")
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
         age = request.POST.get("age")
         roll_number = request.POST.get("roll_number")
 
-        classroom = Classroom.objects.get(id=classroom_id)
+        errors = {}
+
+        if classroom == "":
+            errors["classroom"] = "Please select a classroom."
+
+        if first_name.strip() == "":
+            errors["first_name"] = "First name is required."
+
+        if last_name.strip() == "":
+            errors["last_name"] = "Last name is required."
+
+        if age == "":
+            errors["age"] = "Age is required."
+        else:
+            try:
+                age = int(age)
+
+                if age < 3 or age > 100:
+                    errors["age"] = "Enter a valid age."
+
+            except:
+                errors["age"] = "Age must be a number."
+
+        if roll_number == "":
+            errors["roll_number"] = "Roll number is required."
+        else:
+            try:
+                roll_number = int(roll_number)
+
+                if Student.objects.filter(roll_number=roll_number).exists():
+                    errors["roll_number"] = "Roll number already exists."
+
+            except:
+                errors["roll_number"] = "Roll number must be numeric."
+
+        if errors:
+
+            return render(
+                request,
+                "school/students/add.html",
+                {
+                    "errors": errors,
+                    "old": request.POST,
+                    "classrooms": classrooms
+                }
+            )
 
         Student.objects.create(
-            classroom=classroom,
+            classroom=Classroom.objects.get(id=classroom),
             first_name=first_name,
             last_name=last_name,
             age=age,
@@ -619,8 +666,6 @@ def student_add(request):
         )
 
         return redirect("student_list")
-
-    classrooms = Classroom.objects.all()
 
     return render(
         request,
