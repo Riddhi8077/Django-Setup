@@ -475,12 +475,57 @@ def teacher_edit(request, id):
     if request.method == "POST":
 
         classroom_id = request.POST.get("classroom")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        subject = request.POST.get("subject")
+        email = request.POST.get("email")
 
-        teacher.classroom = Classroom.objects.get(id=classroom_id)
-        teacher.first_name = request.POST.get("first_name")
-        teacher.last_name = request.POST.get("last_name")
-        teacher.subject = request.POST.get("subject")
-        teacher.email = request.POST.get("email")
+        errors = {}
+
+        if not classroom_id:
+            errors["classroom"] = "Please select a classroom."
+
+        if not first_name.strip():
+            errors["first_name"] = "First name is required."
+
+        if not last_name.strip():
+            errors["last_name"] = "Last name is required."
+
+        if not subject.strip():
+            errors["subject"] = "Subject is required."
+
+        if not email.strip():
+            errors["email"] = "Email is required."
+
+        elif not re.match(r"^[^\s@]+@[^\s@]+\.[^\s@]+$", email):
+            errors["email"] = "Enter a valid email address."
+
+        if classroom_id:
+            try:
+                classroom = Classroom.objects.get(id=classroom_id)
+            except Classroom.DoesNotExist:
+                errors["classroom"] = "Selected classroom does not exist."
+
+        if errors:
+
+            classrooms = Classroom.objects.all()
+
+            return render(
+                request,
+                "school/teachers/edit.html",
+                {
+                    "teacher": teacher,
+                    "classrooms": classrooms,
+                    "errors": errors,
+                    "old": request.POST,
+                }
+            )
+
+        teacher.classroom = classroom
+        teacher.first_name = first_name
+        teacher.last_name = last_name
+        teacher.subject = subject
+        teacher.email = email
 
         teacher.save()
 
@@ -496,7 +541,6 @@ def teacher_edit(request, id):
             "classrooms": classrooms,
         }
     )
-
 
 @login_required(login_url="login")
 def teacher_delete(request, id):
