@@ -2,6 +2,23 @@
 <html>
 
 <head>
+    <style>
+
+.error{
+    color:red;
+    font-size:14px;
+    margin-top:5px;
+    display:block;
+}
+
+.error-input{
+
+    border:2px solid red;
+
+}
+
+</style>
+
     <title>Add School</title>
 </head>
 
@@ -21,39 +38,56 @@
             <label>School Name</label><br>
             <input
                 type="text"
+                id="name"
                 name="name"
                 placeholder="Enter School Name"
                 novalidate >
+
+            <span id="nameError" class="error"></span>
+
         </p>
 
         <p>
             <label>Principal Name</label><br>
             <input
                 type="text"
+                id="principal"
                 name="principal"
                 placeholder="Enter Principal Name"
                 novalidate >
+
+            <span id="principalError" class="error"></span>
+
         </p>
 
         <p>
             <label>Address</label><br>
+
             <textarea
                 name="address"
+                id="address"
                 rows="4"
                 cols="40"
                 placeholder="Enter School Address"
                 novalidate
             ></textarea>
+
+            <span id="addressError" class="error"></span>
+
         </p>
 
         <p>
     <label>Established Year</label><br>
     <input
         type="number"
+        id="year"
         name="established_year"
         placeholder="Enter Established Year"
         novalidate
     >
+    
+    <span id="yearError" class="error"></span>
+
 </p>
 
         <button type="submit">
@@ -62,6 +96,5 @@
 
     </form>
 
-</body>
-
-</html>
+    </body>
+    </html>
