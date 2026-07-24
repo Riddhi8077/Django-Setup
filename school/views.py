@@ -404,14 +404,49 @@ def teacher_add(request):
         subject = request.POST.get("subject")
         email = request.POST.get("email")
 
-        classroom = Classroom.objects.get(id=classroom_id)
+        errors = {}
+
+        if not classroom_id:
+            errors["classroom"] = "Please select a classroom."
+
+        if not first_name.strip():
+            errors["first_name"] = "First name is required."
+
+        if not last_name.strip():
+            errors["last_name"] = "Last name is required."
+
+        if not subject.strip():
+            errors["subject"] = "Subject is required."
+
+        if not email.strip():
+            errors["email"] = "Email is required."
+
+        if classroom_id:
+            try:
+                classroom = Classroom.objects.get(id=classroom_id)
+            except Classroom.DoesNotExist:
+                errors["classroom"] = "Selected classroom does not exist."
+
+        if errors:
+
+            classrooms = Classroom.objects.all()
+
+            return render(
+                request,
+                "school/teachers/add.html",
+                {
+                    "errors": errors,
+                    "classrooms": classrooms,
+                    "old": request.POST,
+                }
+            )
 
         Teacher.objects.create(
             classroom=classroom,
             first_name=first_name,
             last_name=last_name,
             subject=subject,
-            email=email
+            email=email,
         )
 
         return redirect("teacher_list")
@@ -425,7 +460,6 @@ def teacher_add(request):
             "classrooms": classrooms
         }
     )
-
 
 @login_required(login_url="login")
 def teacher_edit(request, id):
