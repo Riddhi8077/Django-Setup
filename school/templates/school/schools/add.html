@@ -13,7 +13,7 @@
         <a href="/dashboard/schools/">← Back to Schools</a>
     </p>
 
-    <form method="POST">
+    <form method="POST" id="schoolForm" novalidate>
 
         {% csrf_token %}
 
@@ -23,7 +23,6 @@
                 type="text"
                 name="name"
                 placeholder="Enter School Name"
-                required
             >
         </p>
 
@@ -33,7 +32,6 @@
                 type="text"
                 name="principal"
                 placeholder="Enter Principal Name"
-                required
             >
         </p>
 
@@ -44,7 +42,6 @@
                 rows="4"
                 cols="40"
                 placeholder="Enter School Address"
-                required
             ></textarea>
         </p>
 
@@ -54,7 +51,6 @@
         type="number"
         name="established_year"
         placeholder="Enter Established Year"
-        required
     >
 </p>
 

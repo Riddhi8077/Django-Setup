@@ -13,14 +13,14 @@
     <a href="/dashboard/classrooms/">← Back</a>
 </p>
 
-<form method="POST">
+<form method="POST" id="schoolForm" novalidate>
 
     {% csrf_token %}
 
     <p>
         <label>School</label><br>
 
-        <select name="school" required>
+        <select name="school" >
 
             {% for school in schools %}
 
@@ -41,7 +41,7 @@
             type="text"
             name="class_name"
             value="{{ classroom.class_name }}"
-            required>
+            >
     </p>
 
     <p>
@@ -50,7 +50,7 @@
             type="number"
             name="room_number"
             value="{{ classroom.room_number }}"
-            required>
+            >
     </p>
 
     <p>
@@ -59,7 +59,7 @@
             type="number"
             name="capacity"
             value="{{ classroom.capacity }}"
-            required>
+            >
     </p>
 
     <button type="submit">

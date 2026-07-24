@@ -13,14 +13,14 @@
     <a href="/dashboard/teachers/">← Back</a>
 </p>
 
-<form method="POST">
+<form method="POST" id="schoolForm" novalidate>
 
     {% csrf_token %}
 
     <p>
         <label>Classroom</label><br>
 
-        <select name="classroom" required>
+        <select name="classroom" >
 
             {% for classroom in classrooms %}
 
@@ -41,7 +41,7 @@
             type="text"
             name="first_name"
             value="{{ teacher.first_name }}"
-            required>
+            >
     </p>
 
     <p>
@@ -50,7 +50,7 @@
             type="text"
             name="last_name"
             value="{{ teacher.last_name }}"
-            required>
+            >
     </p>
 
     <p>
@@ -59,7 +59,7 @@
             type="text"
             name="subject"
             value="{{ teacher.subject }}"
-            required>
+            >
     </p>
 
     <p>
@@ -68,7 +68,7 @@
             type="email"
             name="email"
             value="{{ teacher.email }}"
-            required>
+            >
     </p>
 
     <button type="submit">

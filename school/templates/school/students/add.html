@@ -13,14 +13,14 @@
     <a href="/dashboard/students/">← Back</a>
 </p>
 
-<form method="POST">
+<form method="POST" id="schoolForm" novalidate>
 
     {% csrf_token %}
 
     <p>
         <label>Classroom</label><br>
 
-        <select name="classroom" required>
+        <select name="classroom" >
 
             {% for classroom in classrooms %}
 
@@ -36,22 +36,22 @@
 
     <p>
         <label>First Name</label><br>
-        <input type="text" name="first_name" required>
+        <input type="text" name="first_name" >
     </p>
 
     <p>
         <label>Last Name</label><br>
-        <input type="text" name="last_name" required>
+        <input type="text" name="last_name" >
     </p>
 
     <p>
         <label>Age</label><br>
-        <input type="number" name="age" required>
+        <input type="number" name="age" >
     </p>
 
     <p>
         <label>Roll Number</label><br>
-        <input type="number" name="roll_number" required>
+        <input type="number" name="roll_number" >
     </p>
 
     <button type="submit">
