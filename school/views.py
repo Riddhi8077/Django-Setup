@@ -63,6 +63,36 @@ def school_add(request):
         address = request.POST.get("address")
         established_year = request.POST.get("established_year")
 
+        errors = {}
+
+        if not name.strip():
+            errors["name"] = "School name is required."
+
+        if not principal.strip():
+            errors["principal"] = "Principal name is required."
+
+        if not address.strip():
+            errors["address"] = "Address is required."
+
+        try:
+            established_year = int(established_year)
+
+            if established_year < 1800 or established_year > 2026:
+                errors["year"] = "Enter a valid year."
+
+        except:
+            errors["year"] = "Year must be a number."
+
+        if errors:
+            return render(
+                request,
+                "school/schools/add.html",
+                {
+                    "errors": errors,
+                    "old": request.POST
+                }
+            )
+
         School.objects.create(
             name=name,
             principal=principal,
@@ -81,10 +111,46 @@ def school_edit(request, id):
 
     if request.method == "POST":
 
-        school.name = request.POST.get("name")
-        school.principal = request.POST.get("principal")
-        school.address = request.POST.get("address")
-        school.established_year = request.POST.get("established_year")
+        name = request.POST.get("name")
+        principal = request.POST.get("principal")
+        address = request.POST.get("address")
+        established_year = request.POST.get("established_year")
+
+        errors = {}
+
+        if not name.strip():
+            errors["name"] = "School name is required."
+
+        if not principal.strip():
+            errors["principal"] = "Principal name is required."
+
+        if not address.strip():
+            errors["address"] = "Address is required."
+
+        try:
+            established_year = int(established_year)
+
+            if established_year < 1800 or established_year > 2026:
+                errors["year"] = "Enter a valid year."
+
+        except:
+            errors["year"] = "Year must be a number."
+
+        if errors:
+
+            return render(
+                request,
+                "school/schools/edit.html",
+                {
+                    "school": school,
+                    "errors": errors
+                }
+            )
+
+        school.name = name
+        school.principal = principal
+        school.address = address
+        school.established_year = established_year
 
         school.save()
 

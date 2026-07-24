@@ -22,9 +22,14 @@
         <input
             type="text"
             name="name"
-            value="{{ school.name }}"
+            value="{% if request.method == 'POST' %}{{ request.POST.name }}{% else %}{{ school.name }}{% endif %}"
             novalidate
         >
+
+    <span style="color:red;">
+    {{ errors.name }}
+    </span>
+
     </p>
 
     <p>
@@ -32,9 +37,13 @@
         <input
             type="text"
             name="principal"
-            value="{{ school.principal }}"
+            value="{% if request.method == 'POST' %}{{ request.POST.principal }}{% else %}{{ school.principal }}{% endif %}"
             novalidate
         >
+
+    <span style="color:red;">
+    {{ errors.principal }}
+    </span>
     </p>
 
     <p>
@@ -44,7 +53,11 @@
             rows="4"
             cols="40"
             novalidate
-        >{{ school.address }}</textarea>
+        >{% if request.method == 'POST' %}{{ request.POST.address }}{% else %}{{ school.address }}{% endif %}</textarea>
+
+        <span style="color:red;">
+        {{ errors.address }}
+        </span>
     </p>
 
     <p>
@@ -52,9 +65,13 @@
         <input
             type="number"
             name="established_year"
-            value="{{ school.established_year }}"
+            value="{% if request.method == 'POST' %}{{ request.POST.established_year }}{% else %}{{ school.established_year }}{% endif %}"
             novalidate
         >
+
+        <span style="color:red;">
+        {{ errors.year }}
+        </span>
     </p>
 
     <button type="submit">
