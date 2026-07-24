@@ -298,11 +298,60 @@ def classroom_edit(request, id):
     if request.method == "POST":
 
         school_id = request.POST.get("school")
-        classroom.school = School.objects.get(id=school_id)
+        class_name = request.POST.get("class_name")
+        room_number = request.POST.get("room_number")
+        capacity = request.POST.get("capacity")
 
-        classroom.class_name = request.POST.get("class_name")
-        classroom.room_number = request.POST.get("room_number")
-        classroom.capacity = request.POST.get("capacity")
+        errors = {}
+
+        if not school_id:
+            errors["school"] = "Please select a school."
+
+        if not class_name.strip():
+            errors["class_name"] = "Class name is required."
+
+        try:
+            room_number = int(room_number)
+
+            if room_number <= 0:
+                errors["room_number"] = "Room number must be greater than 0."
+
+        except:
+            errors["room_number"] = "Enter a valid room number."
+
+        try:
+            capacity = int(capacity)
+
+            if capacity <= 0:
+                errors["capacity"] = "Capacity must be greater than 0."
+
+        except:
+            errors["capacity"] = "Enter a valid capacity."
+
+        if school_id:
+            try:
+                school = School.objects.get(id=school_id)
+            except School.DoesNotExist:
+                errors["school"] = "Selected school does not exist."
+
+        if errors:
+
+            schools = School.objects.all()
+
+            return render(
+                request,
+                "school/classrooms/edit.html",
+                {
+                    "classroom": classroom,
+                    "schools": schools,
+                    "errors": errors,
+                }
+            )
+
+        classroom.school = school
+        classroom.class_name = class_name
+        classroom.room_number = room_number
+        classroom.capacity = capacity
 
         classroom.save()
 
