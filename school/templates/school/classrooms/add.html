@@ -1,8 +1,27 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>Add Classroom</title>
+
+    <style>
+
+        .error{
+            color:red;
+            font-size:14px;
+            display:block;
+            margin-top:5px;
+        }
+
+        .error-input{
+            border:2px solid red;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
 <h1>Add Classroom</h1>
@@ -11,35 +30,96 @@
     <a href="/dashboard/classrooms/">← Back</a>
 </p>
 
-<form method="POST" id="schoolForm" novalidate>
+<form method="POST" id="classroomForm" novalidate>
+
     {% csrf_token %}
 
     <p>
+
         <label>School</label><br>
-        <select name="school" novalidate>
+
+        <select id="school" name="school">
+
+            <option value="">Select School</option>
+
             {% for school in schools %}
-                <option value="{{ school.id }}">{{ school.name }}</option>
+
+                <option
+                    value="{{ school.id }}"
+                    {% if old.school == school.id|stringformat:"s" %}selected{% endif %}
+                >
+                    {{ school.name }}
+                </option>
+
             {% endfor %}
+
         </select>
+
+        <span class="error" id="schoolError">
+            {{ errors.school }}
+        </span>
+
     </p>
 
     <p>
+
         <label>Class Name</label><br>
-        <input type="text" name="class_name" novalidate>
+
+        <input
+            type="text"
+            id="class_name"
+            name="class_name"
+            value="{{ old.class_name }}"
+        >
+
+        <span class="error" id="classNameError">
+            {{ errors.class_name }}
+        </span>
+
     </p>
 
     <p>
+
         <label>Room Number</label><br>
-        <input type="number" name="room_number" novalidate>
+
+        <input
+            type="number"
+            id="room_number"
+            name="room_number"
+            value="{{ old.room_number }}"
+        >
+
+        <span class="error" id="roomNumberError">
+            {{ errors.room_number }}
+        </span>
+
     </p>
 
     <p>
+
         <label>Capacity</label><br>
-        <input type="number" name="capacity" novalidate>
+
+        <input
+            type="number"
+            id="capacity"
+            name="capacity"
+            value="{{ old.capacity }}"
+        >
+
+        <span class="error" id="capacityError">
+            {{ errors.capacity }}
+        </span>
+
     </p>
 
-    <button type="submit">Save Classroom</button>
+    <button type="submit">
+
+        Save Classroom
+
+    </button>
+
 </form>
 
 </body>
+
 </html>
