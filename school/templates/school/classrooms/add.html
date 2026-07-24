@@ -16,7 +16,7 @@
 
     <p>
         <label>School</label><br>
-        <select name="school" required>
+        <select name="school" novalidate>
             {% for school in schools %}
                 <option value="{{ school.id }}">{{ school.name }}</option>
             {% endfor %}
@@ -25,17 +25,17 @@
 
     <p>
         <label>Class Name</label><br>
-        <input type="text" name="class_name" required>
+        <input type="text" name="class_name" novalidate>
     </p>
 
     <p>
         <label>Room Number</label><br>
-        <input type="number" name="room_number" required>
+        <input type="number" name="room_number" novalidate>
     </p>
 
     <p>
         <label>Capacity</label><br>
-        <input type="number" name="capacity" required>
+        <input type="number" name="capacity" novalidate>
     </p>
 
     <button type="submit">Save Classroom</button>
