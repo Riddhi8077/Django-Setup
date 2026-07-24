@@ -174,8 +174,20 @@ if(year.value.trim() === ""){
     valid = false;
 
 }
+
+else if(year.value < 1800 || year.value > new Date().getFullYear()){
+
+    document.getElementById("yearError").innerHTML =
+        "Please enter a valid year.";
+
+    year.classList.add("error-input");
+
+    valid = false;
+
+}
+
 </script>
 
-</body>
+</body>                                                                                                                                                                                                
 
 </html>
