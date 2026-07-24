@@ -148,6 +148,19 @@ if(principal.value.trim() === ""){
     valid = false;
 
 }
+
+const address = document.getElementById("address");
+
+if(address.value.trim() === ""){
+
+    document.getElementById("addressError").innerHTML =
+        "Address is required.";
+
+    address.classList.add("error-input");
+
+    valid = false;
+
+}
 </script>
 
 </body>
