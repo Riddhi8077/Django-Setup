@@ -220,13 +220,40 @@ def classroom_add(request):
         room_number = request.POST.get("room_number")
         capacity = request.POST.get("capacity")
 
-        school = School.objects.get(id=school_id)
+        errors = {}
+
+        if not class_name.strip():
+            errors["class_name"] = "Class name is required."
+
+        if not room_number.strip():
+            errors["room_number"] = "Room number is required."
+
+        if not capacity.strip():
+            errors["capacity"] = "Capacity is required."
+
+        try:
+            school = School.objects.get(id=school_id)
+        except:
+            errors["school"] = "Please select a valid school."
+
+        if errors:
+            schools = School.objects.all()
+
+            return render(
+                request,
+                "school/classrooms/add.html",
+                {
+                    "errors": errors,
+                    "schools": schools,
+                    "old": request.POST,
+                },
+            )
 
         Classroom.objects.create(
             school=school,
             class_name=class_name,
             room_number=room_number,
-            capacity=capacity
+            capacity=capacity,
         )
 
         return redirect("classroom_list")
@@ -238,7 +265,7 @@ def classroom_add(request):
         "school/classrooms/add.html",
         {
             "schools": schools
-        }
+        },
     )
 
 @login_required(login_url="login")
